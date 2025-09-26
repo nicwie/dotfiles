@@ -1,0 +1,27 @@
+
+\documentclass{article}
+
+\usepackage{amsmath} 
+\usepackage{amssymb}
+
+\title{${cursor}}
+\author{Nic Sebastian Wiesinger} % Sets authors name
+\date{\today} % Sets date for date compiled
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=false,
+    linktoc=all,
+    %linkcolor=blue,
+}
+
+\begin{document} 
+    \maketitle 
+
+    \tableofcontents
+
+    \section{Aufgabe}
+
+
+\end{document} % This is the end of the document

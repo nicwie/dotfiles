@@ -1,0 +1,6 @@
+// Copyright (c) ${year} Nic Sebastian Wiesinger. All Rights Reserved.
+
+int main(int argc, char** argv) {
+    ${cursor}
+    return 1;
+}

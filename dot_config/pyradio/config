@@ -1,0 +1,7 @@
+# PyRadio User Configuration File
+# To get a full list of options execute: pyradio -pc
+# or examine the file: /usr/lib/python3.13/site-packages/pyradio/config
+#
+enable_notifications = 0
+theme = catppuccin-macchiato
+enable_mouse = True
