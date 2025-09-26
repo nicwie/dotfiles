@@ -1,0 +1,19 @@
+#pragma once
+
+class ${filename} {
+public:
+    ${filename}() = default;
+    ~${filename}() = default;
+
+    // Copy semantics
+    ${filename}(const ${filename}& other) = default;
+    ${filename}& operator=(const ${filename}& other) = default;
+
+    // Move semantics
+    ${filename}(${filename}&& other) = default;
+    ${filename}& operator=(${filename}&& other) = default;
+
+private:
+    ${cursor}
+};
+

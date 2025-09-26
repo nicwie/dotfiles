@@ -1,0 +1,59 @@
+\documentclass[11pt, a4paper]{scrartcl} % Using KOMA-Script for better European defaults
+
+% --- METADATA ---
+\title{${cursor}}
+\author{Nic Sebastian Wiesinger}
+\date{\today}
+
+
+% --- PACKAGES ---
+% Language and Encoding
+\usepackage[utf8]{inputenc}       % Input encoding
+\usepackage[T1]{fontenc}          % Font encoding
+\usepackage[ngerman]{babel}       % German language support
+
+% Layout and Typography
+\usepackage{geometry}             % Customize page layout
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm} % Common margin settings
+\usepackage{microtype}            % Subtly improves typography
+
+% Math
+\usepackage{mathtools}            % Extends amsmath
+\usepackage{amssymb}              % For symbols like \mathbb
+
+% Graphics and Tables
+\usepackage{graphicx}             % For \includegraphics
+\usepackage{booktabs}             % For better tables (\toprule, \midrule, \bottomrule)
+
+% Bibliography
+%\usepackage[backend=biber, style=ieee]{biblatex} % A common style for STEM
+%\addbibresource{references.bib}   % Assumes a file named 'references.bib' exists
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,              % Colors links instead of using boxes
+    linkcolor=blue,               % Color of internal links
+    urlcolor=blue,                % Color for URLs
+    citecolor=red,                % Color of citations
+}
+
+% --- DOCUMENT ---
+\begin{document}
+    \maketitle
+    \thispagestyle{empty} % Optional: Removes page number from the title page
+
+    \begin{abstract}
+        Your abstract here...
+    \end{abstract}
+
+    \tableofcontents
+    \newpage
+
+    \section{Aufgabe}
+
+
+    \newpage
+    % \printbibliography % Uncomment this to print your reference list
+
+\end{document}

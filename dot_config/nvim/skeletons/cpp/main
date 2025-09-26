@@ -1,11 +1,9 @@
 // Copyright (c) ${year} Nic Sebastian Wiesinger. All Rights Reserved.
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 int main() {
     ${cursor}
 
     return EXIT_SUCCESS;
 }
-

@@ -1,0 +1,64 @@
+%! TeX Program = lualatex
+\documentclass{beamer}
+
+\usetheme{Boadilla}
+\usecolortheme{beaver}
+
+\usepackage{fontspec}
+\setsansfont{Fira Sans}
+
+% --- PACKAGES ---
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs} % For better tables
+\usepackage{minted}   % For syntax-highlighted code
+\usepackage[backend=biber, style=ieee]{biblatex}
+% \addbibresource{references.bib}
+
+\graphicspath{{images/}}
+
+% --- The color theme for the structure ---
+\setbeamercolor{structure}{fg=red}
+\setbeamercolor{itemize item}{fg=red}
+\setbeamercolor{itemize subitem}{fg=red}
+\setbeamercolor{itemize subsubitem}{fg=red}
+
+% -- METADATA ---
+\title{Placeholder}
+\subtitle{Placeholder}
+\author{Nic Sebastian Wiesinger}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Contents}
+	\tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Title}
+    ${cursor}
+\end{frame}
+
+% \section{Code Example}
+% \begin{frame}[fragile]{Example Code} % 'fragile' option is needed for minted
+% 	\begin{minted}{python}
+%         def hello(name):
+%             print(f"Hello, {name}!")
+%
+%         hello("World")
+%     \end{minted}
+% \end{frame}
+
+
+% \begin{frame}[allowframebreaks]{References}
+% 	\tiny
+% 	\printbibliography
+% \end{frame}
+
+\end{document}

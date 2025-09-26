@@ -1,0 +1,52 @@
+%! TeX Program = lualatex
+\documentclass[english,course]{lecturenotes}
+
+% --- FONTS (for LuaLaTeX) ---
+\usepackage{fontspec}
+\setmainfont{Linux Libertine O} % A great, free, and comprehensive font
+\usepackage{unicode-math}
+\setmathfont{Libertinus Math} % The matching math font for Libertine
+
+% --- STANDARD PACKAGES ---
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=red,
+}
+
+% Add TikZ package and necessary libraries here
+\usepackage{tikz}
+\usetikzlibrary{positioning, shapes.geometric, arrows.meta}
+
+% --- METADATA ---
+\title{Main title of the lecture}
+\subtitle{Subtitle of the lecture}
+\shorttitle{Shortened title} % For headers; if undefined, the usual title will be used
+\subject{Subject of the Talk}
+\ccode{Code 7.25} % Most of these data are not compulsory
+\author{Nic Sebastian Wiesinger}
+\email{nic.wiesinger@yahoo.com}
+\speaker{Speaker's name}
+\spemail{} % Lecturer Email
+\date{${day}}{${month}}{${year}} % Begin of lecture
+\dateend{10}{10}{2025} % End of lecture, placeholders because latex Doesn't compile without them
+\conference{} % Room number
+\place{Paris-Lodron University Salzburg}
+\flag{5th Semester}
+\attn{This document makes no claims of completeness or correctness.}
+\morelink{nswe.xyz}
+
+\begin{document}
+
+\section{Modalities}
+\lecture[2 hours]{${day}}{${month}}{${year}} % as an example
+${cursor}
+
+\end{document}

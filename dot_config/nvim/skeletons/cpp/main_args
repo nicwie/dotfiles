@@ -1,0 +1,13 @@
+// Copyright (c) ${year} Nic Sebastian Wiesinger. All Rights Reserved.
+
+#include <iostream>
+#include <cstdlib>
+
+int main(int argc, char* argv[]) {
+    for (int i = 0; i < argc; ++i) {
+        std::cout << "Argument " << i << ": " << argv[i] << '\\n';
+    }
+    ${cursor}
+
+    return EXIT_SUCCESS;
+}
