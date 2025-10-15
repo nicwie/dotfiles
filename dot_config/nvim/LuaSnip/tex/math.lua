@@ -38,6 +38,9 @@ end
 local all_snippets = {}
 
 -- Wrapper for creating a math-only autosnippet
+-- We want to create a notification when we write something out in full that has
+-- a snippet for it, so that we do not waste time writing out things that can be
+-- written faster
 local function math_auto(trigger, expansion, description)
     -- This is the main, intended snippet
     table.insert(
@@ -50,15 +53,11 @@ local function math_auto(trigger, expansion, description)
         }, expansion)
     )
 
-    -- This section creates the "reminder" snippet
     local exp_text = expansion.nodes and expansion.nodes[1]
     if type(exp_text) == "string" and exp_text:match("^\\") then
         -- The corrected line with double-escaping for the regex trigger
         local reminder_trig = exp_text:gsub(" ", ""):gsub("\\", "\\\\\\\\") .. " "
 
-        -- For Debugging: This will print the generated trigger to your messages.
-        -- You can check it with the `:messages` command in Neovim.
-        -- It should print something like: Luasnip Reminder Trigger: '\\alpha%s'
         print("Luasnip Reminder Trigger: '" .. reminder_trig .. "'")
 
         table.insert(
@@ -127,6 +126,10 @@ math_auto("**", t("\\cdot"), "** to \\cdot")
 math_auto("...", t("\\ldots"), "... to \\ldots")
 math_auto("prop", t("\\propto"), "prop to \\propto")
 math_auto("inf", t("\\infty"), "inf to \\infty")
+math_fmt("(", " \\left( <> \\right)", { i(1) }, "( to \\left( ")
+math_fmt("[", " \\left[ <> \\right]", { i(1) }, "[ to \\left[ ")
+math_fmt("\\{", "\\left\\{ <> \\right\\}", { i(1) }, "\\{ to \\left\\{")
+math_fmt("|", "\\left| <> \\right|", { i(1) }, "| to \\left|")
 
 -- Set Theory
 math_auto("in ", t(" \\in "), "in to \\in")
@@ -202,7 +205,7 @@ table.insert(
                 end),
             }
         ),
-        { show_condition = math }
+        { show_condition = in_mathzone }
     )
 )
 
