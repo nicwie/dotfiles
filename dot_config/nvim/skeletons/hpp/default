@@ -1,6 +1,0 @@
-#ifndef ${filename}_HPP
-#define ${filename}_HPP
-
-${cursor}
-
-#endif

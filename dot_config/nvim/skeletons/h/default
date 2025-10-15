@@ -1,6 +1,0 @@
-#ifndef ${filename}_H
-#define ${filename}_H
-
-${cursor}
-
-#endif
