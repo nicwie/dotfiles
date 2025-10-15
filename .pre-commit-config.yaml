@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.2 # Use the latest version
+    hooks:
+      - id: gitleaks
+        name: Detect secrets
+        description: Detects hardcoded secrets like passwords, api keys, and tokens
+        entry: gitleaks protect --staged -v
+        stages: [pre-commit]

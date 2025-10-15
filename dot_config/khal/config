@@ -1,0 +1,29 @@
+[calendars]
+[[u]]
+path = ~/.local/share/calendars/u/
+color = light blue # Choose a color for the 'u' calendar
+priority = 15 # Optional: set a priority for display
+
+[[g]]
+path = ~/.local/share/calendars/g/
+color = light green # Choose a color for the 'g' calendar
+# priority = 10 # Optional: set a priority for displaycalendars]
+
+[[local]]
+path = ~/.local/share/calendars/local
+color = dark red
+
+[[tasks]]
+path = ~/.local/share/calendars/tasks
+color = light red
+
+[locale]
+timeformat = %H:%M
+dateformat = %Y-%m-%d
+longdateformat = %Y-%m-%d
+datetimeformat = %Y-%m-%d %H:%M
+longdatetimeformat = %Y-%m-%d %H:%M
+
+[default]
+default_calendar = local
+highlight_event_days = True
