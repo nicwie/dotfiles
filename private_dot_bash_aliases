@@ -1,0 +1,8 @@
+alias ssh-lotte="ssh -p 2211 d300342@lotte.edvz.uni-linz.ac.at"
+alias gh='history|grep'
+alias cd..='cd ..'
+alias wetter="curl http://wttr.in/salzburg"
+alias resetkbd="sudo modprobe -r i8042 && sudo modprobe i8042"
+alias ltr="ll -tr"
+alias vi="nvim"
+alias vim="nvim"
