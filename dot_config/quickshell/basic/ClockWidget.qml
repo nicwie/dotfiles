@@ -10,7 +10,7 @@ Item {
         id: child
         color: Time.timeColor
         anchors.fill: parent
-        implicitWidth: 120
+        implicitWidth: 130
         implicitHeight: 30
         Text {
             id: content

@@ -1,0 +1,4 @@
+set(__QT_DEPLOY_TARGET_appuntitled_FILE /home/nicwie1/.config/quickshell/basic/libappuntitled.so)
+set(__QT_DEPLOY_TARGET_appuntitled_TYPE SHARED_LIBRARY)
+set(__QT_DEPLOY_TARGET_appuntitledplugin_FILE /home/nicwie1/.config/quickshell/basic/libappuntitledplugin.so)
+set(__QT_DEPLOY_TARGET_appuntitledplugin_TYPE MODULE_LIBRARY)

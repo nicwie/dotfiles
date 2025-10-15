@@ -23,8 +23,7 @@ Item {
             id: icon
             anchors.centerIn: parent
             font.pixelSize: 18
-            // !TODO: Make this better (enabling, ...)
-            text: BluetoothMonitor.adapter.enabled ? "" : "󰂲"
+            text: BluetoothMonitor.adapter ? BluetoothMonitor.adapter.enabled ? "" : "󰂲" : "󰂳"
         }
 
         MouseArea {

@@ -13,6 +13,7 @@ Singleton {
     property real usage: 0
     property real lastTotal: 0
     property real lastIdle: 0
+    property string cpuDetail
 
     property color cpuColor: (usagePercent > 70) ? Colors.peach : Colors.teal
 
@@ -40,6 +41,30 @@ Singleton {
 
                 root.lastTotal = total;
                 root.lastIdle = idle;
+            }
+        }
+    }
+
+    Process {
+        id: cpuCores
+        command: ["sh", "-c", "bat /proc/stat"]
+
+        running: false
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var lines = this.text.split("\n");
+                var cpuString;
+                for (var i = 0; i < lines.length; i++) {
+                    var line = lines[i].trim();
+                    if (line.includes("cpu")) {
+                        var total = 0;
+                        var fields = this.text.substring(5).split(" ");
+                        var idle = parseFloat(fields);
+                        // !TODO: parse all usage percents of each line,
+                        // save as string with each line being `cpu# <usage>%`
+                    }
+                }
             }
         }
     }

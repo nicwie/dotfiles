@@ -24,15 +24,20 @@ Item {
         spacing: 0
 
         MouseArea {
-            width: buttonText.implicitWidth
+            width: workspaceRect.visible ? buttonText.implicitWidth : 0
             height: 30
             onClicked: {
                 Hyprland.dispatch("workspace " + workspaceData.id);
             }
 
             Rectangle {
+                id: workspaceRect
+
                 anchors.fill: parent
                 color: Colors.mauve
+                visible: {
+                    workspaceData.name < 11;
+                }
                 Text {
                     id: buttonText
                     text: workspaceData.name

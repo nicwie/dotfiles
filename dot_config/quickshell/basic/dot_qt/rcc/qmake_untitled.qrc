@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/qt/qml/untitled">
+    <file alias="qmldir">/home/nicwie1/.config/quickshell/basic/qmldir</file>
+  </qresource>
+</RCC>
+

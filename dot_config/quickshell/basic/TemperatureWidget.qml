@@ -18,11 +18,11 @@ Item {
             text: getText() + "°C"
             function getText() {
                 if (cpuTemp > 80) {
-                    return " " + cpuTemp;
+                    return "  " + cpuTemp;
                 } else if (cpuTemp > 50) {
-                    return " " + cpuTemp;
+                    return "  " + cpuTemp;
                 } else {
-                    return " " + cpuTemp;
+                    return "  " + cpuTemp;
                 }
             }
         }
