@@ -1,0 +1,95 @@
+\documentclass[
+    11pt, 
+    a4paper, 
+    DIV=12,
+]{scrartcl} % Using KOMA-Script for better European defaults
+
+
+
+% --- PACKAGES ---
+% Language and Encoding
+\usepackage[utf8]{inputenc}       % Input encoding
+\usepackage[T1]{fontenc}          % Font encoding
+\usepackage[ngerman]{babel}       % German language support
+\usepackage{csquotes}
+
+
+% Layout and Typography
+\usepackage{geometry}             % Customize page layout
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm} % Common margin settings
+\usepackage[automark]{scrlayer-scrpage} % Für erweiterte Kopf- und Fußzeilen
+\usepackage{microtype}            % Subtly improves typography
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\cfoot*{\pagemark}                % Page number centered on footnote
+\ifoot{\author}                   % Author left on footnote
+\ofoot{\title}                    % title right footnote
+
+% Math
+\usepackage{mathtools}            % Extends amsmath
+\usepackage{amssymb}              % For symbols like \mathbb
+\usepackage{amsthm}
+
+% Graphics and Tables
+\usepackage{graphicx}             % For \includegraphics
+\usepackage{booktabs}             % For better tables (\toprule, \midrule, \bottomrule)
+\usepackage{enumitem}
+
+% Bibliography
+%\usepackage[backend=biber, style=ieee]{biblatex} % A common style for STEM
+%\addbibresource{references.bib}   % Assumes a file named 'references.bib' exists
+
+% Hyperlinks
+\usepackage[svgnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,              % Colors links instead of using boxes
+    linkcolor=MidnightBlue,       % Color of internal links
+    citecolor=DarkRed,
+    urlcolor=DarkSlateGray,       % Color for URLs
+}
+
+% --- Definitions and Commands
+
+\theoremstyle{definition} % Straight text, bold title
+\newtheorem{aufgabe}{Aufgabe} % creates "Aufgabe 1", "Aufgabe 2", etc.
+
+
+\renewcommand{\proofname}{Beweis} % Changes "Proof" to "Beweis"
+\renewcommand{\qedsymbol}{\(\blacksquare\)} % Black square to denote proof end
+
+
+% --- METADATA ---
+\title{${cursor}}
+\author{Nic Sebastian Wiesinger}
+\date{\today}
+
+% --- DOCUMENT ---
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\begin{aufgabe}
+	\addcontentsline{toc}{section}{Aufgabe \theaufgabe}
+	Angabe ...
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		      \begin{equation}
+			      1+1
+			      \label{eq:aufgabe1a}
+		      \end{equation}
+		      \begin{proof}[Cooler Beweis]
+			      Ich hab gehört, dass $1+1$ zu $2$ wird.
+		      \end{proof}
+		\item
+		      Hier könnte ihre Aufgabe 2 stehen!
+	\end{enumerate}
+\end{aufgabe}
+
+\newpage
+% \printbibliography % Uncomment this to print your reference list
+
+\end{document}
+

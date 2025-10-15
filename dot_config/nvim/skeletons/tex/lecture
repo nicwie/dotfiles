@@ -1,42 +1,20 @@
 %! TeX Program = lualatex
-\documentclass[english,course]{lecturenotes}
-
-% --- FONTS (for LuaLaTeX) ---
-\usepackage{fontspec}
-\setmainfont{Linux Libertine O} % A great, free, and comprehensive font
-\usepackage{unicode-math}
-\setmathfont{Libertinus Math} % The matching math font for Libertine
-
-% --- STANDARD PACKAGES ---
-\usepackage{mathtools}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{microtype}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    urlcolor=blue,
-    citecolor=red,
-}
-
-% Add TikZ package and necessary libraries here
-\usepackage{tikz}
-\usetikzlibrary{positioning, shapes.geometric, arrows.meta}
+\documentclass[english,course]{mylecturenotes}
 
 % --- METADATA ---
 \title{Main title of the lecture}
-\subtitle{Subtitle of the lecture}
-\shorttitle{Shortened title} % For headers; if undefined, the usual title will be used
-\subject{Subject of the Talk}
-\ccode{Code 7.25} % Most of these data are not compulsory
+% \subtitle{Subtitle of the lecture}
+% For headers; if undefined, the usual title will be used
+% \shorttitle{Shortened title}
+% \subject{Subject of the Talk}
+% \ccode{Code 7.25} % Most of these data are not compulsory
 \author{Nic Sebastian Wiesinger}
 \email{nic.wiesinger@yahoo.com}
 \speaker{Speaker's name}
 \spemail{} % Lecturer Email
 \date{${day}}{${month}}{${year}} % Begin of lecture
-\dateend{10}{10}{2025} % End of lecture, placeholders because latex Doesn't compile without them
+% End of lecture, placeholders because latex Doesn't compile without them
+\dateend{10}{10}{2025}
 \conference{} % Room number
 \place{Paris-Lodron University Salzburg}
 \flag{5th Semester}

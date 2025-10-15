@@ -1,4 +1,8 @@
-\documentclass[11pt, a4paper]{scrartcl} % Using KOMA-Script for better European defaults
+\documentclass[
+    11pt, 
+    a4paper, 
+    DIV=12,
+]{scrartcl} % Using KOMA-Script for better European defaults
 
 % --- METADATA ---
 \title{${cursor}}
