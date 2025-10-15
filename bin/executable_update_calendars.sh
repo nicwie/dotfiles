@@ -15,7 +15,7 @@ source "$HOME/.config/calendar-sync/secrets"
 # --- Update 'u' calendar ---
 echo "Updating 'u' calendar..."
 # Download the latest .ics file
-wget -O "$TEMP_FILE_U" "$URL_U"
+wget -O "$TEMP_FILE_U" "$CAL_URL_U"
 
 # Clear the local calendar directory
 rm -f "$LOCAL_DIR_U"/*.ics
@@ -31,7 +31,7 @@ echo "'u' calendar updated."
 # --- Update 'g' calendar ---
 echo "Updating 'g' calendar..."
 # Download the latest .ics file
-wget -O "$TEMP_FILE_G" "$URL_G"
+wget -O "$TEMP_FILE_G" "$CAL_URL_G"
 
 # Clear the local calendar directory
 rm -f "$LOCAL_DIR_G"/*.ics
