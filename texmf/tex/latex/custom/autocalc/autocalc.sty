@@ -1,0 +1,29 @@
+\ProvidesPackage{autocalc}[2025/10/05 v0.1 - Automatic Calculation Macro]
+
+% Load required packages
+\RequirePackage{xcolor}
+\RequirePackage{luacode}
+\RequirePackage{xparse}
+
+\begin{luacode*}
+	function calculate_expression(expression_string)
+	s = expression_string
+	s = string.gsub(s, "\\frac%s*{(.-)}%s*{(.-)}", "(%1)/(%2)")
+	s = string.gsub(s, "\\cdot", "*")
+	s = string.gsub(s, "\\times", "*")
+	s = string.gsub(s, "\\sqrt%s*[(.-)]%s*{(.-)}", "")
+	s = string.gsub(s, "\\sqrt%s*{(.-)}", "math.sqrt(%1)")
+	local func, err = load("return " .. s)
+	if func then
+	tex.sprint(expression_string .. " = " .. func())
+	else
+	tex.sprint(expression_string .. " = " .. "\\textcolor{red}{Error}")
+	end
+	end
+\end{luacode*}
+
+\NewDocumentCommand{\autocalc}{v}{%
+	\directlua{calculate_expression(\luastring{#1})}%
+}
+
+\endinput
