@@ -56,7 +56,7 @@ tiling_drag modifier titlebar
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+KP_Enter exec alacritty
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -215,7 +215,7 @@ bar {
 exec_always xrandr --output eDP1 --mode 1920x1080
 
 # shortcut for lockscreen
-bindsym $mod+x exec /home/nicwie1/.config/scripts/lock
+bindsym $mod+x exec i3lock
 
 # Color shemes for windows 
 set $bgcolor    #523d64
