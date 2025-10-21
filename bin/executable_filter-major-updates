@@ -1,0 +1,51 @@
+#!/usr/bin/awk -f
+
+# This script filters a checkupdates list to show only "major" updates.
+# "Major" means:
+# 1. It's not a simple rebuild (e.g., 1.2.2-1 -> 1.2.2-2).
+# 2. The first or second number (x.y) of the version has changed.
+
+{
+    # $2 is the old version, $4 is the new version
+    old_full = $2
+    new_full = $4
+
+    # Filter out rebuilds
+    # Split "1.2.2-313" into "1.2.2" and "313"
+    split(old_full, old_parts, "-")
+    split(new_full, new_parts, "-")
+    
+    old_base = old_parts[1]
+    new_base = new_parts[1]
+
+    # If the base version (before the '-') is the same, skip this line.
+    if (old_base == new_base) {
+        next
+    }
+
+    # Filter for x.y changes ---
+    # Strip any epoch (e.g., "1:")
+    sub(/.*:/, "", old_base)
+    sub(/.*:/, "", new_base)
+
+    # Split "20.1.8" into "20", "1", "8"
+    split(old_base, old_ver_nums, ".")
+    split(new_base, new_ver_nums, ".")
+
+    # Reconstruct the "x.y" part.
+    # We check for "" in case a version is just "6" (like a kernel)
+    old_major_minor = old_ver_nums[1]
+    if (old_ver_nums[2] != "") {
+        old_major_minor = old_major_minor "." old_ver_nums[2]
+    }
+
+    new_major_minor = new_ver_nums[1]
+    if (new_ver_nums[2] != "") {
+        new_major_minor = new_major_minor "." new_ver_nums[2]
+    }
+
+    # If the "x.y" part is different, print the original line
+    if (old_major_minor != new_major_minor) {
+        print $0
+    }
+}
