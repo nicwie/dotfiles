@@ -1,0 +1,34 @@
+[core]
+    editor = nvim
+    pager = delta
+[user]
+    name = nicwie
+    email = nic.wiesinger@yahoo.com
+[init]
+    defaultBranch = main
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    dark = true
+    line-numbers = true
+    hyperlinks = true
+    side-by-side = true
+[diff]
+    tool = nvimdiff
+    guitool = nvimdiff
+[merge]
+    tool = nvimdiff
+    conflictstyle = zdiff3
+[mergetool]
+    keepBackup = false
+    trustExitCode = false
+    prompt = true
+[difftool]
+    prompt = false
+[mergetool "vimdiff"]
+    layout = LOCAL,MERGED,REMOTE
+[alias]
+    adog = log --all --decorate --oneline --graph
+[pull]
+    rebase = false
