@@ -136,6 +136,11 @@ eval "$(atuin init zsh)"
 # This is needed for conda-zsh-completion
 autoload -U compinit && compinit
 
+# This should make it possible for us to write `antidot init`
+# which should put dotfiles in $HOME in their respective XDG
+# directories
+eval "$(antidot init)"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"

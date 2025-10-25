@@ -3,7 +3,8 @@ alias :q="exit"
 alias vi=nvim
 alias cd..="cd .."
 alias t="task"
-alias _="sudo"
+# This does not work, has to be defined as an abbreviation
+# alias _="sudo"
 alias wetter="curl v2d.wttr.in/Salzburg"
 alias vimdiff="nvim -d"
 

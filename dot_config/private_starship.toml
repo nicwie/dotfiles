@@ -1,5 +1,10 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# General options
+palette = 'catppuccin_frappe'
+continuation_prompt = '▶▶ '
+
+# Prompt left
 # $username\
 format = """
 [](red)\
@@ -18,23 +23,66 @@ $java\
 $kotlin\
 $haskell\
 $python\
-[](fg:green bg:sapphire)\
+[](fg:green bg:mauve)\
+${custom.taskw_active}\
+[](fg:mauve bg:sapphire)\
 $conda\
-[ ](fg:lavender)\
+[ ](fg:sapphire bg:blue)\
+$shlvl\
+[ ](fg:blue)\
+
 $cmd_duration\
+$fill\
+
+[](fg:crust bg:peach)\
+$jobs\
+[](fg:peach bg:teal)\
+${custom.taskw_overdue}\
+[](fg:teal bg:lavender)\
+$time\
+[](fg:lavender bg:crust)\
 $line_break\
 [](peach)\
 $directory\
 [](bg:crust fg:peach)\
+$sudo\
 $character"""
 
+# Prompt right
 right_format = """
-[](fg:base bg:lavender)\
-$time\
-[](fg:lavender bg:crust)\
+${custom.timew}\
+$battery\
 """
 
-palette = 'catppuccin_mocha'
+# Single segment config
+
+[custom.taskw_active]
+when = true
+description = "Shows the current active task in taskwarrior"
+unsafe_no_escape = true
+command = '''echo $(TASK_PROMPT_CALL=1 task +ACTIVE export | jq -e -r '.[0] | if .id == null then empty else "\(.id): \(.description)" end')'''
+format = '[ $symbol $output](fg:crust bg:mauve)'
+symbol = ''
+
+[custom.taskw_overdue]
+when = true
+description = "Outputs '!<# of overdue tasks>/<# of total tasks>'"
+command = '''echo "$(TASK_PROMPT_CALL=1 task +OVERDUE export | jq 'length')/$(TASK_PROMPT_CALL=1 task +PENDING export | jq 'length')"'''
+symbol = ''
+format = '[ $symbol !$output ](fg:crust bg:teal)'
+
+[custom.timew]
+command = "echo $(timew get dom.active.tags.1)"
+when = "timew"
+symbol = '󱘿'
+description = "Shows the tags of the current timew track"
+format = '[$symbol ($output )]($style)'
+style = 'bold #FF9800'
+
+
+[fill]
+# symbol = '-'
+symbol = ''
 
 [os]
 disabled = false
@@ -150,6 +198,16 @@ style = "fg:crust bg:sapphire"
 format = '[$symbol$environment ]($style)'
 ignore_base = false
 
+[shlvl]
+disabled = false
+format = '[$symbol $shlvl ](fg:crust bg:$style)'
+style = "blue"
+symbol = '󰹹'
+
+[jobs]
+style = "peach"
+format = '[ $symbol$number ](bold fg:base bg:$style)'
+
 [time]
 disabled = false
 time_format = "%R"
@@ -168,6 +226,11 @@ vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
 vimcmd_replace_symbol = '[❮](bold fg:lavender)'
 vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
+[sudo]
+format = '[$symbol](fg:red)'
+disabled = false
+symbol = '!'
+
 [cmd_duration]
 show_milliseconds = true
 format = " in $duration "
@@ -175,6 +238,21 @@ style = "bg:lavender"
 disabled = false
 show_notifications = true
 min_time_to_notify = 45000
+
+[battery]
+format = '[](fg:crust bg:$style)[ $symbol$percentage ](bold fg:base bg:$style)[](fg:$style bg:crust)'
+
+[[battery.display]]
+threshold = 20
+style = "red"
+
+[[battery.display]]
+threshold = 50
+style = "yellow"
+
+[[battery.display]]
+threshold = 70
+style = "green"
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"

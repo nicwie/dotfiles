@@ -18,5 +18,7 @@ alias ls='exa --icons'
 alias ll='exa -lh --icons'
 alias la='exa -lah --icons'
 
+alias ch='chezmoi'
+
 # For presentations, we want to have a light background for projectors
 alias zathura-presentation='zathura --config-dir ~/.config/zathura-presentation/zathurarc.light'
