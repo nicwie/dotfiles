@@ -86,6 +86,7 @@ Singleton {
     Process {
         id: coreCpuProcess
         command: ["sh", "-c", "bat /proc/stat"]
+        running: true
 
         stdout: StdioCollector {
             onStreamFinished: {
@@ -141,7 +142,6 @@ Singleton {
         onTriggered: {
             if (!coreCpuProcess.running) {
                 coreCpuProcess.running = true;
-                console.log("Started timer!");
             }
         }
     }

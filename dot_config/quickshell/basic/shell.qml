@@ -1,6 +1,8 @@
+//@ pragma UseQApplication
 import Quickshell
 
 ShellRoot {
+    id: shellRoot
     // Use to enable / disable modules
     property bool enableBar: true
     property bool enableCheatSheet: true
@@ -18,12 +20,12 @@ ShellRoot {
     property bool enableBottomPopup: true
 
     LazyLoader {
-        active: enableBar
+        active: shellRoot.enableBar
         component: Bar {}
     }
 
     LazyLoader {
-        active: enableBottomPopup
+        active: shellRoot.enableBottomPopup
         component: BottomPopup {}
     }
 }

@@ -7,7 +7,7 @@ import QtQuick
 Singleton {
     id: root
     readonly property int wifiPercent: {
-        Math.round(2 * (strength + 100));
+        Math.min(Math.max(2 * (strength + 100), 0), 100); // bound between 0 and 100
     }
 
     readonly property color wifiColor: color

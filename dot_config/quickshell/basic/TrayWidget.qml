@@ -1,7 +1,8 @@
-import Quickshell
-import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Effects
+import Quickshell
+import Quickshell.Services.SystemTray
 
 Item {
     id: root
@@ -31,11 +32,15 @@ Item {
                     implicitWidth: 20
                     implicitHeight: 20
 
-                    onClicked: event => {
-                        if (event.button === Qt.LeftButton)
+                    onClicked: mouse => {
+                        var mappedPoint = iconRoot.mapToItem(null, mouse.x, mouse.y);
+                        if (mouse.button === Qt.LeftButton) {
                             modelData.activate();
-                        else
+                        } else if (mouse.button === Qt.RightButton && modelData.hasMenu) {
+                            modelData.display(background, background.x + 5, background.y);
+                        } else {
                             modelData.secondaryActivate();
+                        }
                     }
 
                     Image {
@@ -50,8 +55,6 @@ Item {
                             }
                             return icon;
                         }
-                        // colour: Colours.palette.m3secondary
-                        // layer.enabled: Config.bar.tray.recolour
                     }
                 }
             }

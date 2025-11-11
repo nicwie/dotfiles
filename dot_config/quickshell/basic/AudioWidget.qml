@@ -73,7 +73,7 @@ Item {
             implicitHeight: mouseBackground.height + 5
             anchor {
                 rect.y: root.height + 5
-                // Find a better way for this (not moving too much when pressed, but staying ~ with the module)
+                // TODO: Find a better way for this (not moving too much when pressed, but staying ~ with the module)
                 // rect.x: -(root.width / 2)
                 item: root
                 // adjustment: SlideY
