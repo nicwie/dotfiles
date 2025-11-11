@@ -10,7 +10,7 @@ TEMP_FILE_U="/tmp/u.ics"
 TEMP_FILE_G="/tmp/g.ics"
 # Source the private URLs from a separate config file
 # Fails if the file doesn't exist
-source "$HOME/.config/calendar-sync/secrets"
+source "$XDG_CONFIG_HOME/calendar-sync/secrets"
 
 # --- Update 'u' calendar ---
 echo "Updating 'u' calendar..."

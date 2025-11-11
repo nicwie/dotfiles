@@ -2,7 +2,7 @@
 
 # This script filters a checkupdates list to show only "major" updates.
 # "Major" means:
-# 1. It's not a simple rebuild (e.g., 1.2.2-1 -> 1.2.2-2).
+# 1. Not a simple rebuild (e.g., 1.2.2-1 -> 1.2.2-2).
 # 2. The first or second number (x.y) of the version has changed.
 
 {
@@ -14,7 +14,7 @@
     # Split "1.2.2-313" into "1.2.2" and "313"
     split(old_full, old_parts, "-")
     split(new_full, new_parts, "-")
-    
+
     old_base = old_parts[1]
     new_base = new_parts[1]
 
