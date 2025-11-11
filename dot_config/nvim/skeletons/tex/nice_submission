@@ -15,8 +15,6 @@
 
 
 % Layout and Typography
-\usepackage{geometry}             % Customize page layout
-\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm} % Common margin settings
 \usepackage[automark]{scrlayer-scrpage} % Für erweiterte Kopf- und Fußzeilen
 \usepackage{microtype}            % Subtly improves typography
 \pagestyle{scrheadings}

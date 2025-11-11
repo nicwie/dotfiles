@@ -52,13 +52,34 @@ if(BUILD_TESTING)
     googletest URL https://github.com/google/googletest/archive/v1.14.0.zip)
   FetchContent_MakeAvailable(googletest)
 
-  add_executable(tests src/tests/test.cpp)
+  add_executable(tests tests/test.cpp)
 
   target_link_libraries(tests PRIVATE GTest::gtest_main ${PROJECT_NAME}_lib)
 
   # Include the GoogleTest module to discover tests automatically.
   include(GoogleTest)
   gtest_discover_tests(tests)
+endif()
+
+if(ENABLE_COVERAGE AND BUILD_TESTING)
+  find_program(GCOVR_PATH gcovr)
+
+  if(GCOVR_PATH)
+      add_custom_target(
+          coverage-html
+          COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage-html
+          COMMAND ${GCOVR_PATH}
+                  --filter "${CMAKE_SOURCE_DIR}/src/"
+                  --filter "${CMAKE_SOURCE_DIR}/include/"
+                  --html-details ${CMAKE_BINARY_DIR}/coverage-html/index.html
+                  -r ${CMAKE_SOURCE_DIR}
+                  ${CMAKE_BINARY_DIR}
+          WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+          COMMENT "Generating HTML coverage report in ${CMAKE_BINARY_DIR}/coverage-html/index.html"
+      )
+  else()
+      message(WARNING "gcovr not found. 'coverage-html' target will not be available.")
+  endif()
 endif()
 
 # Invoke with 'cmake --build build --target run'.
