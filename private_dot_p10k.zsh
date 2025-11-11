@@ -1824,48 +1824,20 @@
   function prompt_my_active_taskwarrior() {
     local my_data  # Variable to hold the data you want to display
 
-    # --- STEP 1: Gather your data ---
-    # Example: Get the current time
     my_data=$(get_taskwarrior_active_task)
 
-    # Example: Check if a specific file exists
-    # if [[ -f "my_special_file.txt" ]]; then
-    #   my_data+=" (File Present)"
-    # else
-    #   return  # Don't show the segment if the file isn't present
-    # fi
 
-    # --- STEP 2: Apply conditional logic (optional) ---
-    # If you only want to show the segment under certain conditions,
-    # use 'return' to skip displaying it.
-    # Example: Only show if my_data is not empty
+    # Only show if my_data is not empty
     if [[ -z "$my_data" ]]; then
       p10k segment -b 5 -f "black" -i '' -t ""
       return
     fi
 
-    # --- STEP 3: Format the output ---
-    # Use p10k's styling functions for consistency.
-    # Common functions include:
-    #   - p10k_icon_XXX: For icons (e.g., p10k_icon_time)
-    #   - %F{color_name}: Foreground color
-    #   - %K{color_name}: Background color
-    #   - %f: Reset foreground color
-    #   - %k: Reset background color
-    #   - %B: Bold
-    #   - %b: Unbold
-
+    # Format the output
     # Truncate the description if it exceeds 45 characters
-    #
     local my_shortened_data=${my_data:0:45}${${my_data:45}:+...}
 
-
-    # You can make it more complex with multiple colors/parts:
-    # local part1="Prefix"
-    # local part2="Value"
-    # formatted_output="%F{green}${part1}%f %F{yellow}${part2}%f"
-
-    # --- STEP 4: Return the formatted string ---
+    # Return the formatted string
     # p10k will automatically add separators and padding.
     p10k segment -b 5 -f "black" -i '  ' -t "${my_shortened_data}"
   }
