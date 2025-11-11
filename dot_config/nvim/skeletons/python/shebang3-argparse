@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import argparse
+
+def main():
+  parser = argparse.ArgumentParser(description="")
+  parser.add_argument('inputFile', type=str, help="File to read from")
+  args = parser.parse_args()
+
+  return None
+
+if __name__ == "__main__":
+  main()

@@ -1,0 +1,5 @@
+auto_activate_base: false
+envs_dirs:
+  - /home/nicwie1/.config/conda/envs
+channels:
+  - defaults
