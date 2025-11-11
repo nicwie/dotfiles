@@ -57,6 +57,7 @@ $battery\
 # Single segment config
 
 [custom.taskw_active]
+shell = ["sh", "--noprofile", "--noprofile"]
 when = true
 description = "Shows the current active task in taskwarrior"
 unsafe_no_escape = true
@@ -66,14 +67,16 @@ symbol = ''
 
 [custom.taskw_overdue]
 when = true
+shell = ["sh", "--noprofile", "--noprofile"]
 description = "Outputs '!<# of overdue tasks>/<# of total tasks>'"
 command = '''echo "$(TASK_PROMPT_CALL=1 task +OVERDUE export | jq 'length')/$(TASK_PROMPT_CALL=1 task +PENDING export | jq 'length')"'''
 symbol = ''
 format = '[ $symbol !$output ](fg:crust bg:teal)'
 
 [custom.timew]
+shell = ["sh", "--noprofile", "--noprofile"]
 command = "echo $(timew get dom.active.tags.1)"
-when = "timew"
+when = true
 symbol = '󱘿'
 description = "Shows the tags of the current timew track"
 format = '[$symbol ($output )]($style)'
