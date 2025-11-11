@@ -3,7 +3,6 @@
 
 return {
     -- Allows us to open foo/bar.txt without foo existing
-    -- -- Allows us to open foo/bar.txt without foo existing
     "jghauser/mkdir.nvim",
     { "nkakouros-original/numbers.nvim", opts = {} },
     {
@@ -21,7 +20,7 @@ return {
         cmd = "Cppman",
         dependencies = {
             "nvim-telescope/telescope.nvim", -- optional for telescope picker
-            "folke/snacks.nvim", -- optional for snacks picker
+            -- "folke/snacks.nvim", -- optional for snacks picker
         },
         opts = {}, -- required, `setup()` must be called
     },
