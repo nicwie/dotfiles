@@ -1,53 +1,91 @@
 #!/bin/bash
 
-# Exit immediately if a command exits with a non-zero status.
-set -e
+# Exit immediately if error or unset var
+set -eu
 
-# Define calendar URLs and local directories
-LOCAL_DIR_U="$HOME/.local/share/calendars/u/"
-LOCAL_DIR_G="$HOME/.local/share/calendars/g/"
-TEMP_FILE_U="/tmp/u.ics"
-TEMP_FILE_G="/tmp/g.ics"
-# Source the private URLs from a separate config file
-# Fails if the file doesn't exist
-source "$XDG_CONFIG_HOME/calendar-sync/secrets"
+################################################################################
+#  This fetches a specified calendar from a URL and imports it into khal.
+#
+# Arguments:
+#     $1: The calendar's short name (e.g., "u", "g", "work")
+#     $2: The url for the calendar
+# Outputs:
+#     Logs the progress of the sync operation
+################################################################################
+sync_calendar() {
+    local cal_name="$1"
+    local cal_url="$2"
 
-# --- Update 'u' calendar ---
-echo "Updating 'u' calendar..."
-# Download the latest .ics file
-wget -O "$TEMP_FILE_U" "$CAL_URL_U"
+    local local_dir="${XDG_DATA_HOME:-$HOME/.local/share}/calendars/$cal_name/"
+    local temp_file="/tmp/$cal_name.ics"
 
-# Clear the local calendar directory
-rm -f "$LOCAL_DIR_U"/*.ics
+    echo "Updating '$cal_name' calendar..."
 
-# Import the downloaded file into khal
-khal import --batch "$TEMP_FILE_U" -a u
+    echo "Downloading..."
+    if ! wget --quiet -O "$temp_file" "$cal_url"; then
+        echo "ERROR: download of '$cal_url' failed."
+        rm -f "$temp_file"
+        return 1
+    fi
 
-# Clean up temporary file
-rm -f "$TEMP_FILE_U"
+    mkdir -p "$local_dir"
 
-echo "'u' calendar updated."
+    echo "Clearing old -ics files from $local_dir".
+    rm -f "$local_dir"/*.ics
 
-# --- Update 'g' calendar ---
-echo "Updating 'g' calendar..."
-# Download the latest .ics file
-wget -O "$TEMP_FILE_G" "$CAL_URL_G"
+    echo "Importing '$cal_name' to khal..."
+    if ! khal import --batch "$temp_file" -a "$cal_name"; then
+        echo "ERROR: khal import failed for '$cal_name'"
+        rm -f "$temp_file"
+        return 1
+    fi
 
-# Clear the local calendar directory
-rm -f "$LOCAL_DIR_G"/*.ics
+    rm -f "$temp_file"
 
-# Import the downloaded file into khal
-khal import --batch "$TEMP_FILE_G" -a g
+    echo "Successfully updated '$cal_name' calendar"
+}
 
-# Clean up temporary file
-rm -f "$TEMP_FILE_G"
+main() {
+    # Ensure the directory exists or source might fail
+    mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/calendar-sync"
 
-echo "'g' calendar updated."
+    # Use conditional sourcing so it doesn't crash if file is missing
+    if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/calendar-sync/secrets" ]; then
+        source "${XDG_CONFIG_HOME:-$HOME/.config}/calendar-sync/secrets"
+    else
+        echo "WARNING: Secrets file not found."
+    fi
 
-echo "updating 'tasks' calendar..."
+    echo "Starting calendar sync..."
 
-~/bin/tasks_to_ical.py
+    for var_name in $(compgen -v CAL_URL_ || true); do
+        # remove "CAL_URL_" from name
+        local cal_name_upper="${var_name#CAL_URL_}"
 
-echo "'tasks' calendar updated."
+        # convert to lower case
+        local cal_name="${cal_name_upper,,}"
 
-echo "Calendar update complete."
+        # Validate that the name is a simple string and contains no
+        # dots, slashes, or other dangerous characters.
+        if ! [[ "$cal_name" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+            echo "ERROR: Invalid or unsafe calendar name detected: '$cal_name'. Skipping."
+            continue
+        fi
+
+        # get value of var
+        local cal_url="${!var_name}"
+
+        sync_calendar "$cal_name" "$cal_url"
+    done
+
+    echo "Updating 'tasks' calendar"
+    if ! "$HOME/bin/tasks_to_ical.py"; then
+        echo "ERROR: tasks_to_ical.py failed."
+    else
+        echo "'tasks' calendar updated."
+    fi
+
+    echo "Calendar update complete"
+}
+
+main
