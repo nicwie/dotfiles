@@ -92,6 +92,26 @@ function M.setup()
                 "[T]oggle [O]verlength",
             },
             {
+                "<leader>tf",
+                function()
+                    vim.b.disable_formatting = not vim.b.disable_formatting
+                    if vim.b.disable_formatting then
+                        vim.notify(
+                            "Formatting disabled for current buffer",
+                            vim.log.levels.WARN,
+                            { title = "Formatter" }
+                        )
+                    else
+                        vim.notify(
+                            "Formatting enabled for current buffer",
+                            vim.log.levels.INFO,
+                            { title = "Formatter" }
+                        )
+                    end
+                end,
+                desc = "[t]oggle [f]ormatter for buffer",
+            },
+            {
                 "<leader>cr",
                 vim.lsp.buf.rename,
                 desc = "[C]ode [R]ename",
@@ -422,12 +442,14 @@ function M.setup()
                 end,
                 desc = "[S]earch [C]ppman",
             },
+            { "<leader>l", ":Gen<CR>", "Chat with [l]lm" },
         },
 
         -- Visual Mode Keymaps
         v = {
-            -- { "J", ":m '>+1<CR>gv=gv", desc = "Move line down" },
-            -- { "K", ":m '<-2<CR>gv=gv", desc = "Move line up" },
+            { "J", ":m '>+1<CR>gv=gv", desc = "Move line down" },
+            { "K", ":m '<-2<CR>gv=gv", desc = "Move line up" },
+            { "<leader>l", ":Gen<CR>", "Send selected to [l]lm" },
         },
         i = {
             {

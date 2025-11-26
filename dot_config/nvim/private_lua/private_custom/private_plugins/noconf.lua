@@ -9,12 +9,12 @@ return {
         "axkirillov/hbac.nvim",
         config = true,
     },
-    {
-        "m4xshen/hardtime.nvim",
-        lazy = false,
-        dependencies = { "MunifTanjim/nui.nvim" },
-        opts = {},
-    },
+    -- {
+    --     "m4xshen/hardtime.nvim",
+    --     lazy = false,
+    --     dependencies = { "MunifTanjim/nui.nvim" },
+    --     opts = {},
+    -- },
     {
         "v1nh1shungry/cppman.nvim",
         cmd = "Cppman",
