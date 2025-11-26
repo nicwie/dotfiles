@@ -8,10 +8,11 @@ Singleton {
     id: root
 
     readonly property bool isCapped: isCappedInternal
-
     property bool isCappedInternal: false
-
     property bool shouldCap: false
+
+    // Path to the battery control file (this is system dependent)
+    readonly property string batteryPath: "/sys/class/power_supply/BAT0/charge_types"
 
     onShouldCapChanged: {
         if (shouldCap != isCapped) {
@@ -27,13 +28,16 @@ Singleton {
 
     Process {
         id: checkCapped
-        command: ["sh", "-c", "ideapad-cm status"]
+        command: ["cat", root.batteryPath]
 
         running: true
 
         stdout: StdioCollector {
             onStreamFinished: {
-                if (this.text.includes("enabled")) {
+                // The file looks like: "Standard [Long_Life]" when capped
+                // or "[Standard] Long_Life" when uncapped.
+                // We check if "Long_Life" is inside brackets.
+                if (this.text.includes("[Long_Life]")) {
                     root.isCappedInternal = true;
                     root.shouldCap = true;
                 } else {
@@ -46,7 +50,8 @@ Singleton {
 
     Process {
         id: cap
-        command: ["sh", "-c", "sudo ideapad-cm enable"]
+        // command: ["sh", "-c", "sudo ideapad-cm enable"]
+        command: ["sudo", "/home/nicwie1/bin/battery-control.sh", "on"]
 
         running: false
 
@@ -59,7 +64,8 @@ Singleton {
 
     Process {
         id: uncap
-        command: ["sh", "-c", "sudo ideapad-cm disable"]
+        // command: ["sh", "-c", "sudo ideapad-cm disable"]
+        command: ["sudo", "/home/nicwie1/bin/battery-control.sh", "off"]
 
         running: false
 
