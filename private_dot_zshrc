@@ -136,6 +136,9 @@ eval "$(atuin init zsh)"
 # This is needed for conda-zsh-completion
 autoload -U compinit && compinit
 
+# This allows us to quickly mass edit file names
+autoload -U zmv
+
 # This should make it possible for us to write `antidot init`
 # which should put dotfiles in $HOME in their respective XDG
 # directories
