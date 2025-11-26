@@ -20,5 +20,9 @@ alias la='exa -lah --icons'
 
 alias ch='chezmoi'
 
+alias open='open_command'
+
+alias systempane="tmux new-session -d -s workspace \; split-window -h -p 50 \; select-pane -t 0 \; split-window -v -p 25 \; select-pane -t 2 \; split-window -v -p 55 \; select-pane -t 0 \; send-keys 'mocp -T yellow_red_theme' C-m \; select-pane -t 1 \; send-keys 'cava' C-m \; send-keys o f f f \; select-pane -t 2 \; send-keys 'yazi' C-m \; select-pane -t 3 \; send-keys 'btop' C-m \; select-pane -t 0 \; attach -t workspace"
+
 # For presentations, we want to have a light background for projectors
 alias zathura-presentation='zathura --config-dir ~/.config/zathura-presentation/zathurarc.light'
