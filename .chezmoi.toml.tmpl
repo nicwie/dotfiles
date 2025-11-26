@@ -1,0 +1,8 @@
+{{- $ucal := promptStringOnce . "url" "First Calendar Address" -}}
+{{- $gcal := promptStringOnce . "url" "Second Calendar Address" -}}
+[diff]
+    pager = "delta"
+
+[data.calendar]
+    u = {{ $ucal | quote }}
+    g = {{ $gcal | quote }}

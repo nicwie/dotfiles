@@ -1,0 +1,13 @@
+OnSongChange = "/home/nicwie1/bin/nowplaying.sh %a %t"
+
+Fastdir1 = "/home/nicwie1/Music"
+Fastdir2 = "/home/nicwie1/Downloads"
+
+MusicDir = "/home/nicwie1/Music"
+
+StartInMusicDir = yes
+
+Theme = yellow_red_theme
+
+Keymap = keymap
+SoundDriver = PULSEAUDIO:ALSA
