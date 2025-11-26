@@ -1,0 +1,9 @@
+[Unit]
+Description=Run Calendar updater hourly
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target

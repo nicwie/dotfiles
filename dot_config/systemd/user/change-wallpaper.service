@@ -1,0 +1,6 @@
+[Unit]
+Description=Change Hyprland Wallpaper
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/change_wallpaper.sh

@@ -1,0 +1,14 @@
+[Unit]
+Description=Update Calendars from University and Google and Tasks
+
+[Service]
+Type=oneshot
+SyslogIdentifier=update-calendars
+ExecStart=%h/bin/update_calendars.sh
+
+Environment="TASKRC=/home/nicwie1/.config/task/taskrc"
+Environment="XDG_DATA_HOME=/home/nicwie1/.local/share"
+Environment="XDG_CONFIG_HOME=/home/nicwie1/.config"
+
+# Force the data location explicitly just to be safe:
+Environment="TASKDATA=/home/nicwie1/.local/share/task"
