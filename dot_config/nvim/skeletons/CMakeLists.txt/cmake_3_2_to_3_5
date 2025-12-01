@@ -1,0 +1,106 @@
+cmake_minimum_required(VERSION 3.2)
+
+# Set CMAKE_EXPORT_COMPILE_COMMANDS to generate compile_commands.json
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Project name, version, and language.
+project(MyProject CXX)
+# Then set the version separately.
+set(PROJECT_VERSION "1.0")
+
+# C++ Standard Configuration
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
+# Define warning flags in a list.
+set(GCC_CLANG_WARNING_FLAGS
+    -Wall
+    -Wextra
+    -Wpedantic
+    -Wuninitialized
+    -Wshadow
+    -Wconversion
+    -Werror)
+
+# IF statement to check the compiler ID and apply flags.
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    message(STATUS "GCC/Clang compiler detected, adding warning flags.")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_CLANG_WARNING_FLAGS}")
+    
+    # For debug builds, add the -g flag for debugging symbols.
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
+endif()
+
+
+# --- Library Target ---
+add_library(${PROJECT_NAME}_lib src/my_lib.cpp)
+
+# target_include_directories without generator expressions.
+target_include_directories(
+  ${PROJECT_NAME}_lib
+  PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+
+# --- Executable Target ---
+add_executable(${PROJECT_NAME} src/main.cpp)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_lib)
+
+
+# --- Testing ---
+# Add an option to enable/disable tests. Toggle with -DBUILD_TESTING=ON/OFF
+option(BUILD_TESTING "Build the testing suite" ON)
+
+if(BUILD_TESTING)
+  enable_testing()
+
+  include(ExternalProject)
+
+  ExternalProject_Add(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+    PREFIX "${CMAKE_BINARY_DIR}/googletest"
+    INSTALL_COMMAND ""
+    CMAKE_ARGS -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+  )
+
+  # Get the source and binary directories from the external project
+  ExternalProject_Get_Property(googletest source_dir binary_dir)
+
+  # Add the GoogleTest libraries. Create IMPORTED libraries to represent them.
+  add_library(gtest IMPORTED STATIC GLOBAL)
+  set_target_properties(gtest PROPERTIES
+    IMPORTED_LOCATION "${binary_dir}/lib/libgtest.a"
+  )
+  add_library(gtest_main IMPORTED STATIC GLOBAL)
+  set_target_properties(gtest_main PROPERTIES
+    IMPORTED_LOCATION "${binary_dir}/lib/libgtest_main.a"
+  )
+
+  # Include directories needed for GoogleTest
+  set(GOOGLETEST_INCLUDE_DIRS
+    ${source_dir}/googletest/include
+    ${source_dir}/googlemock/include
+  )
+
+  add_executable(tests src/tests/test.cpp)
+  target_include_directories(tests PRIVATE ${GOOGLETEST_INCLUDE_DIRS})
+
+  # Link our library and the gtest libraries to the test executable.
+  target_link_libraries(tests ${PROJECT_NAME}_lib gtest gtest_main)
+  add_dependencies(tests googletest)
+
+  add_test(NAME MyProjectTests COMMAND tests)
+
+endif()
+
+
+# --- Custom Target to Run ---
+add_custom_target(
+  run
+  DEPENDS ${PROJECT_NAME}
+  COMMAND ${PROJECT_NAME}
+  COMMENT "Running ${PROJECT_NAME} executable..."
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
+
