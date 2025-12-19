@@ -14,14 +14,12 @@
 
 # Use the command 'task show' to see all defaults and overrides
 
-# Files
-data.location=/home/nicwie1/.task
 
 # To use the default location of the XDG directories,
 # move this configuration file from ~/.taskrc to ~/.config/task/taskrc and uncomment below
 
-#data.location=~/.local/share/task
-#hooks.location=~/.config/task/hooks
+data.location=~/.local/share/task
+# hooks.location=~/.config/task/hooks
 
 # Color theme (uncomment one to use)
 #include light-16.theme
@@ -48,6 +46,8 @@ uda.priority.values=H,M,,L
 
 urgency.uda.priority..coefficient=2.0
 urgency.due.coefficient=15.0
+urgency.user.project.uni.coefficient=2
+urgency.user.project.home.coefficient=10
 
 uda.reviewed.type=date
 uda.reviewed.label=Reviewed

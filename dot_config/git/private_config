@@ -32,3 +32,5 @@
     adog = log --all --decorate --oneline --graph
 [pull]
     rebase = false
+[credential]
+	helper = store

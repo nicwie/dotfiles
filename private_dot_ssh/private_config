@@ -1,0 +1,5 @@
+Host lotte
+    HostName lotte.edvz.uni-linz.ac.at
+    User d300342
+    Port 2211
+    SetEnv TERM=xterm-256color
