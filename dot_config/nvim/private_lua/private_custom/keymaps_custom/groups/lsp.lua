@@ -75,6 +75,29 @@ return {
             desc = "[t]oggle [f]ormatter for buffer",
         },
         {
+            "<leader>tl",
+            function()
+                vim.b.disable_linting = not vim.b.disable_linting
+                if vim.b.disable_linting then
+                    vim.diagnostic.enable(false, { bufnr = 0 })
+                    vim.notify(
+                        "Linting disabled for current buffer",
+                        vim.log.levels.WARN,
+                        { title = "Linter" }
+                    )
+                else
+                    vim.diagnostic.enable(true, { bufnr = 0 })
+                    vim.notify(
+                        "Linting enabled for current buffer",
+                        vim.log.levels.INFO,
+                        { title = "Linter" }
+                    )
+                    require("lint").try_lint()
+                end
+            end,
+            desc = "[t]oggle [l]inter for buffer",
+        },
+        {
             "<leader>cr",
             vim.lsp.buf.rename,
             desc = "[C]ode [R]ename",

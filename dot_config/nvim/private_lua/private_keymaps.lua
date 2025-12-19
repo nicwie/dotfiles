@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
 
 -- load custom keymaps
-require("custom/keymaps_custom").setup()
+require("custom.keymaps_custom").setup()
 
 -- would like to do it this way, not sure how
 -- for keymap in require("custom/keymaps_custom") do
