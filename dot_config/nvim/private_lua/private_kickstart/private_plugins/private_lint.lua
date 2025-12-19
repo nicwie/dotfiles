@@ -32,7 +32,7 @@ return {
                 group = lint_augroup,
                 callback = function()
                     -- Only run the linter in buffers that you can modify
-                    if vim.opt_local.modifiable:get() then
+                    if vim.opt_local.modifiable:get() and not vim.b.disable_linting then
                         lint.try_lint()
                     end
                 end,

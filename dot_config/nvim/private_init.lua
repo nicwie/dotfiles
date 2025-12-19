@@ -132,11 +132,6 @@ vim.filetype.add({
     pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 })
 
--- This is so that get an lsp for QuickShell
-require("lspconfig").qmlls.setup({
-    cmd = { "qmlls", "-E" },
-})
-
 vim.cmd([[let g:vimtex_compiler_engine = 'lualatex']])
 
 -- This is done so that vim airline doesn't overtake bufferline.nvim

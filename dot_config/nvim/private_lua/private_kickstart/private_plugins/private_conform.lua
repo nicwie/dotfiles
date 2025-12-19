@@ -29,6 +29,8 @@ return {
                 c = { "clang-format" },
                 cpp = { "clang-format" },
 
+                rust = { "rustfmt", lsp_format = "fallback" },
+
                 java = { "google-java-format" },
 
                 cmake = { "cmake-format" },

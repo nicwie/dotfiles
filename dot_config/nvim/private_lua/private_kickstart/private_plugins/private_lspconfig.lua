@@ -34,47 +34,51 @@ return {
             },
         },
         config = function()
-            local on_attach = function(client, bufnr)
-                local map = function(keys, func, desc, mode)
-                    mode = mode or "n"
-                    vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
-                end
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+                callback = function(event)
+                    local map = function(keys, func, desc, mode)
+                        mode = mode or "n"
+                        vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+                    end
 
-                map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "x" })
+                    -- NOTE: This is not the default behavior of Kickstart, but we add it here to mimic your previous configuration
+                    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "x" })
 
-                if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, bufnr) then
-                    local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
-                    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-                        buffer = bufnr,
-                        group = highlight_augroup,
-                        callback = vim.lsp.buf.document_highlight,
-                    })
+                    local client = vim.lsp.get_client_by_id(event.data.client_id)
+                    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                        local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+                        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                            buffer = event.buf,
+                            group = highlight_augroup,
+                            callback = vim.lsp.buf.document_highlight,
+                        })
 
-                    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                        buffer = bufnr,
-                        group = highlight_augroup,
-                        callback = vim.lsp.buf.clear_references,
-                    })
+                        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+                            buffer = event.buf,
+                            group = highlight_augroup,
+                            callback = vim.lsp.buf.clear_references,
+                        })
 
-                    vim.api.nvim_create_autocmd("LspDetach", {
-                        group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
-                        callback = function(event2)
-                            vim.lsp.buf.clear_references()
-                            vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
-                        end,
-                    })
-                end
+                        vim.api.nvim_create_autocmd("LspDetach", {
+                            group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+                            callback = function(event2)
+                                vim.lsp.buf.clear_references()
+                                vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+                            end,
+                        })
+                    end
 
-                -- The following code creates a keymap to toggle inlay hints in your
-                -- code, if the language server you are using supports them
-                --
-                -- This may be unwanted, since they displace some of your code
-                if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, bufnr) then
-                    map("<leader>th", function()
-                        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
-                    end, "[T]oggle Inlay [H]ints")
-                end
-            end
+                    -- The following code creates a keymap to toggle inlay hints in your
+                    -- code, if the language server you are using supports them
+                    --
+                    -- This may be unwanted, since they displace some of your code
+                    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                        -- Toggle inlay hints
+                        vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+                    end
+                end,
+            })
             -- Diagnostic Config
             -- See :help vim.diagnostic.Opts
             vim.diagnostic.config({
@@ -112,29 +116,12 @@ return {
                 pyright = {},
                 ts_ls = {},
                 ltex_plus = {},
-                jdtls = {
-                    settings = {
-                        java = {
-                            configuration = {
-                                runtimes = {
-                                    {
-                                        name = "JavaSE-1.8",
-                                        path = "/home/nicwie1/.asdf/installs/java/adoptopenjdk-8.0.202+8",
-                                        default = true,
-                                    },
-                                    {
-                                        name = "JavaSE-24",
-                                        path = "/home/nicwie1/.asdf/installs/java/openjdk-24.0.1",
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
+                jdtls = {},
                 gopls = {},
                 qmlls = {},
                 bashls = {},
                 cmake = {},
+                rust_analyzer = {},
                 --
 
                 lua_ls = {
@@ -153,6 +140,7 @@ return {
             vim.list_extend(ensure_installed, {
                 -- Formatters
                 "stylua",
+                "rustfmt",
                 "clang-format",
                 "prettierd",
                 "black",
@@ -161,7 +149,6 @@ return {
                 "clang-format",
                 "latexindent",
                 "bibtex-tidy",
-                "beautysh",
                 "google-java-format",
 
                 -- Linters
@@ -189,7 +176,6 @@ return {
                         -- by the server configuration above. Useful when disabling
                         -- certain features of an LSP (for example, turning off formatting for ts_ls)
                         server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                        server.on_attach = on_attach
                         require("lspconfig")[server_name].setup(server)
                     end,
                 },
