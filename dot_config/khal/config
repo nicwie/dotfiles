@@ -9,6 +9,10 @@ path = ~/.local/share/calendars/g/
 color = light green # Choose a color for the 'g' calendar
 # priority = 10 # Optional: set a priority for displaycalendars]
 
+[[f]]
+path = ~/.local/share/calendars/f/
+color = light magenta
+
 [[local]]
 path = ~/.local/share/calendars/local
 color = dark red
